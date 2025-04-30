@@ -11,7 +11,9 @@ import {
   Bell, 
   FileText, 
   FileMinus,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  BarChart,
+  Map
 } from "lucide-react";
 import { useSidebar } from "../sidebar/SidebarContext";
 import { cn } from "@/lib/utils";
@@ -20,6 +22,12 @@ interface NavItemProps {
   to: string;
   label: string;
   icon: React.ElementType;
+}
+
+interface SubNavItemProps {
+  to: string;
+  label: string;
+  parentOpen: boolean;
 }
 
 const NavItem = ({ to, label, icon: Icon }: NavItemProps) => {
@@ -44,8 +52,35 @@ const NavItem = ({ to, label, icon: Icon }: NavItemProps) => {
   );
 };
 
+const SubNavItem = ({ to, label, parentOpen }: SubNavItemProps) => {
+  const { isSidebarOpen } = useSidebar();
+  
+  if (!isSidebarOpen || !parentOpen) return null;
+  
+  return (
+    <NavLink
+      to={to}
+      className={({ isActive }) => 
+        cn(
+          "flex items-center py-2 px-4 pl-10 rounded-md transition-colors text-sm",
+          isActive 
+            ? "bg-sidebar-accent/70 text-primary" 
+            : "text-sidebar-foreground/70 hover:bg-sidebar-accent/30 hover:text-sidebar-foreground"
+        )
+      }
+    >
+      {label}
+    </NavLink>
+  );
+};
+
 const Sidebar = () => {
   const { isSidebarOpen } = useSidebar();
+  const [cmcMenuOpen, setCmcMenuOpen] = React.useState(false);
+  
+  const toggleCmcMenu = () => {
+    setCmcMenuOpen(!cmcMenuOpen);
+  };
   
   return (
     <aside
@@ -55,8 +90,6 @@ const Sidebar = () => {
       )}
     >
       <div className="p-4">
-        {/* Removed the MAST ICO and Admin Control Center text block */}
-        
         <nav className="space-y-1">
           <NavItem to="/" label="Dashboard" icon={Activity} />
           <NavItem to="/token-management" label="Token Management" icon={Coins} />
@@ -68,6 +101,48 @@ const Sidebar = () => {
           <NavItem to="/notifications" label="Notifications" icon={Bell} />
           <NavItem to="/kyc-management" label="KYC/AML" icon={FileText} />
           <NavItem to="/legal-compliance" label="Legal" icon={FileMinus} />
+          
+          {/* CMC Menu Item */}
+          <div className="relative">
+            <button
+              onClick={toggleCmcMenu}
+              className={cn(
+                "flex items-center w-full py-3 px-4 rounded-md transition-colors",
+                cmcMenuOpen 
+                  ? "bg-sidebar-accent text-primary" 
+                  : "text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
+                !isSidebarOpen && "justify-center"
+              )}
+            >
+              <BarChart size={20} className="min-w-[20px]" />
+              {isSidebarOpen && (
+                <>
+                  <span className="ml-3">CMC</span>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                    className={cn("ml-auto transition-transform", cmcMenuOpen && "transform rotate-180")}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </>
+              )}
+            </button>
+            
+            {/* CMC Submenu */}
+            <div className={cn("pl-2 mt-1 space-y-1", !cmcMenuOpen && "hidden")}>
+              <SubNavItem to="/cmc/tokenomics" label="Tokenomics" parentOpen={cmcMenuOpen} />
+              <SubNavItem to="/cmc/roadmap" label="Roadmap" parentOpen={cmcMenuOpen} />
+            </div>
+          </div>
+          
           <NavItem to="/settings" label="Settings" icon={SettingsIcon} />
         </nav>
       </div>
