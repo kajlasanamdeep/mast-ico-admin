@@ -55,12 +55,7 @@ const Sidebar = () => {
       )}
     >
       <div className="p-4">
-        {isSidebarOpen && (
-          <div className="mb-6">
-            <h2 className="text-xl font-bold gradient-text">MAST ICO</h2>
-            <p className="text-xs text-sidebar-foreground/60">Admin Control Center</p>
-          </div>
-        )}
+        {/* Removed the MAST ICO and Admin Control Center text block */}
         
         <nav className="space-y-1">
           <NavItem to="/" label="Dashboard" icon={Activity} />
