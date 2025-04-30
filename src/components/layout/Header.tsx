@@ -1,7 +1,8 @@
 
-import { Bell, Menu, User } from "lucide-react";
+import { Bell, Menu, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "../sidebar/SidebarContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +15,7 @@ import {
 
 const Header = () => {
   const { toggleSidebar } = useSidebar();
+  const { logout } = useAuth();
   
   return (
     <header className="h-16 border-b border-border/20 bg-background sticky top-0 z-40">
@@ -53,7 +55,11 @@ const Header = () => {
                 <DropdownMenuItem>Help</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">
+              <DropdownMenuItem 
+                className="text-destructive"
+                onClick={logout}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
                 Log Out
               </DropdownMenuItem>
             </DropdownMenuContent>

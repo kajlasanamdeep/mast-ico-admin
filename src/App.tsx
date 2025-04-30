@@ -6,7 +6,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SidebarProvider } from "./components/sidebar/SidebarContext";
 import { ThemeProvider } from "./providers/ThemeProvider";
+import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/layout/Layout";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import TokenManagement from "./pages/TokenManagement";
 import InvestorManagement from "./pages/InvestorManagement";
@@ -24,32 +27,37 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <TooltipProvider>
-        <SidebarProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="token-management" element={<TokenManagement />} />
-                <Route path="investor-management" element={<InvestorManagement />} />
-                <Route path="ico-settings" element={<IcoSettings />} />
-                <Route path="transaction-history" element={<TransactionHistory />} />
-                <Route path="security-settings" element={<SecuritySettings />} />
-                <Route path="campaign-management" element={<CampaignManagement />} />
-                <Route path="notifications" element={<Notifications />} />
-                <Route path="kyc-management" element={<KycManagement />} />
-                <Route path="legal-compliance" element={<LegalCompliance />} />
-                <Route path="settings" element={<Settings />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </SidebarProvider>
-      </TooltipProvider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider>
+        <TooltipProvider>
+          <AuthProvider>
+            <SidebarProvider>
+              <Toaster />
+              <Sonner />
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/" element={<Layout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path="token-management" element={<TokenManagement />} />
+                    <Route path="investor-management" element={<InvestorManagement />} />
+                    <Route path="ico-settings" element={<IcoSettings />} />
+                    <Route path="transaction-history" element={<TransactionHistory />} />
+                    <Route path="security-settings" element={<SecuritySettings />} />
+                    <Route path="campaign-management" element={<CampaignManagement />} />
+                    <Route path="notifications" element={<Notifications />} />
+                    <Route path="kyc-management" element={<KycManagement />} />
+                    <Route path="legal-compliance" element={<LegalCompliance />} />
+                    <Route path="settings" element={<Settings />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
+                </Route>
+              </Routes>
+            </SidebarProvider>
+          </AuthProvider>
+        </TooltipProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 
