@@ -16,6 +16,7 @@ import CampaignManagement from "./pages/CampaignManagement";
 import Notifications from "./pages/Notifications";
 import KycManagement from "./pages/KycManagement";
 import LegalCompliance from "./pages/LegalCompliance";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
               <Route path="notifications" element={<Notifications />} />
               <Route path="kyc-management" element={<KycManagement />} />
               <Route path="legal-compliance" element={<LegalCompliance />} />
+              <Route path="settings" element={<Settings />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

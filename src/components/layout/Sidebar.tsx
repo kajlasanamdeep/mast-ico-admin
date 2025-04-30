@@ -10,7 +10,8 @@ import {
   Shield, 
   Bell, 
   FileText, 
-  FileMinus 
+  FileMinus,
+  Settings as SettingsIcon
 } from "lucide-react";
 import { useSidebar } from "../sidebar/SidebarContext";
 import { cn } from "@/lib/utils";
@@ -72,6 +73,7 @@ const Sidebar = () => {
           <NavItem to="/notifications" label="Notifications" icon={Bell} />
           <NavItem to="/kyc-management" label="KYC/AML" icon={FileText} />
           <NavItem to="/legal-compliance" label="Legal" icon={FileMinus} />
+          <NavItem to="/settings" label="Settings" icon={SettingsIcon} />
         </nav>
       </div>
     </aside>
