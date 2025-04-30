@@ -32,7 +32,7 @@ const NavItem = ({ to, label, icon: Icon }: NavItemProps) => {
         cn(
           "flex items-center py-3 px-4 rounded-md transition-colors",
           isActive 
-            ? "bg-sidebar-accent text-accent" 
+            ? "bg-sidebar-accent text-primary" 
             : "text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
           !isSidebarOpen && "justify-center"
         )

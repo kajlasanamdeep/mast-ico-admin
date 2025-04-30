@@ -27,13 +27,13 @@ const Header = () => {
           >
             <Menu className="h-5 w-5" />
           </Button>
-          <h1 className="text-xl font-bold hidden sm:block">Control Center</h1>
+          <h1 className="text-xl font-bold hidden sm:block gradient-text">Cryptog Admin</h1>
         </div>
         
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-destructive text-xs rounded-full h-4 w-4 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-primary text-xs rounded-full h-4 w-4 flex items-center justify-center">
               3
             </span>
           </Button>
@@ -45,7 +45,7 @@ const Header = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>Admin User</DropdownMenuLabel>
+              <DropdownMenuLabel>Admin</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>Profile</DropdownMenuItem>

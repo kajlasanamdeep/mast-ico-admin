@@ -6,7 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Image } from "lucide-react";
+import { Image, Moon, Sun, Monitor } from "lucide-react";
+import { toast } from "sonner";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -14,6 +15,11 @@ const Settings = () => {
   const [lastName, setLastName] = useState("Admin");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("admin@example.com");
+  const [selectedTheme, setSelectedTheme] = useState("system");
+
+  const handleUpdatePreferences = () => {
+    toast.success("Preferences updated successfully!");
+  };
 
   return (
     <div className="space-y-6">
@@ -161,25 +167,43 @@ const Settings = () => {
           <div>
             <h2 className="text-2xl font-bold">Appearance</h2>
             <p className="text-muted-foreground">
-              Customize the appearance of the platform.
+              Customize the appearance of the app. Automatically switch between day and night themes.
             </p>
           </div>
           
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-medium">Theme Settings</h3>
+              <h3 className="text-lg font-medium">Theme</h3>
+              <p className="text-sm text-muted-foreground">Select the theme for the dashboard.</p>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Color Mode</Label>
-                  <div className="flex space-x-4">
-                    <Button variant="outline">Light</Button>
-                    <Button variant="outline">Dark</Button>
-                    <Button variant="outline">System</Button>
+              <div className="grid grid-cols-2 gap-4 max-w-md">
+                <div 
+                  className={`cursor-pointer rounded-lg border p-4 ${selectedTheme === 'light' ? 'border-primary bg-accent' : 'border-border'}`}
+                  onClick={() => setSelectedTheme('light')}
+                >
+                  <div className="border rounded-md p-4 bg-white mb-3">
+                    <div className="h-2 w-8 bg-gray-200 mb-2 rounded-sm"></div>
+                    <div className="h-2 w-16 bg-gray-200 mb-2 rounded-sm"></div>
+                    <div className="h-2 w-10 bg-gray-200 rounded-sm"></div>
                   </div>
+                  <div className="text-center">Light</div>
+                </div>
+
+                <div 
+                  className={`cursor-pointer rounded-lg border p-4 ${selectedTheme === 'dark' ? 'border-primary bg-accent' : 'border-border'}`}
+                  onClick={() => setSelectedTheme('dark')}
+                >
+                  <div className="border rounded-md p-4 bg-slate-900 mb-3">
+                    <div className="h-2 w-8 bg-slate-700 mb-2 rounded-sm"></div>
+                    <div className="h-2 w-16 bg-slate-700 mb-2 rounded-sm"></div>
+                    <div className="h-2 w-10 bg-slate-700 rounded-sm"></div>
+                  </div>
+                  <div className="text-center">Dark</div>
                 </div>
               </div>
+
+              <Button onClick={handleUpdatePreferences} className="mt-8 bg-black text-white hover:bg-black/90">Update preferences</Button>
             </CardContent>
           </Card>
         </TabsContent>
