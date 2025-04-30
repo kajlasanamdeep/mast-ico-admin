@@ -3,8 +3,12 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import ThemeSelector from "./ThemeSelector";
+import ThemePreviewCard from "./ThemePreviewCard";
+import { useTheme } from "@/providers/ThemeProvider";
 
 const AppearanceTab = () => {
+  const { theme, setTheme } = useTheme();
+
   const handleUpdatePreferences = () => {
     toast.success("Preferences updated successfully!");
   };
@@ -25,6 +29,19 @@ const AppearanceTab = () => {
         </CardHeader>
         <CardContent>
           <ThemeSelector />
+          
+          <div className="grid grid-cols-2 gap-4 max-w-md mt-4">
+            <ThemePreviewCard 
+              theme="light" 
+              currentTheme={theme} 
+              onClick={() => setTheme('light')} 
+            />
+            <ThemePreviewCard 
+              theme="dark" 
+              currentTheme={theme} 
+              onClick={() => setTheme('dark')} 
+            />
+          </div>
 
           <Button onClick={handleUpdatePreferences} className="mt-8 bg-black text-white hover:bg-black/90">
             Update preferences
