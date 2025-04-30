@@ -1,4 +1,5 @@
 
+import React from "react";
 import TokenomicsDisplay from "@/components/cmc/TokenomicsDisplay";
 
 const TokenomicsPage = () => {
@@ -7,7 +8,7 @@ const TokenomicsPage = () => {
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">Tokenomics</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Learn about the MAST token distribution and economics
+          Token allocation and distribution
         </p>
       </div>
       

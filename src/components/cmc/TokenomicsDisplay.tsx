@@ -1,4 +1,5 @@
 
+import React from "react";
 import { useCmc } from "@/contexts/CmcContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -24,10 +25,7 @@ const TokenomicsDisplay = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-xl md:text-2xl">{tokenomics.tokenSymbol} Token Distribution</CardTitle>
-        <CardDescription>
-          Total Supply: {tokenomics.totalSupply} {tokenomics.tokenSymbol}
-        </CardDescription>
+        <CardTitle className="text-xl md:text-2xl">Token Allocation</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-80 md:h-96 w-full">
