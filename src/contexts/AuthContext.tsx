@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -13,16 +13,24 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Check if user is logged in from localStorage
     const loggedInStatus = localStorage.getItem("isLoggedIn");
-    setIsAuthenticated(loggedInStatus === "true");
-  }, []);
+    const isLoggedIn = loggedInStatus === "true";
+    setIsAuthenticated(isLoggedIn);
+    
+    // If user is logged in and currently on login page, redirect to dashboard
+    if (isLoggedIn && location.pathname === "/login") {
+      navigate("/", { replace: true });
+    }
+  }, [location, navigate]);
 
   const login = () => {
     setIsAuthenticated(true);
     localStorage.setItem("isLoggedIn", "true");
+    navigate("/");
   };
 
   const logout = () => {

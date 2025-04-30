@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   // For demo purposes, hardcoded credentials
   // In a real app, this would be replaced with proper authentication
@@ -40,7 +40,8 @@ const Login = () => {
         });
         // Store login state in localStorage (for demo purposes)
         localStorage.setItem("isLoggedIn", "true");
-        navigate("/");
+        // Use the login function from context
+        login();
       } else {
         toast({
           title: "Error",
