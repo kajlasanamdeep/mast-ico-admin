@@ -1,7 +1,13 @@
+
 import * as React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SidebarContext } from "./sidebar-types";
+import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
+// Constants for sidebar dimensions
+const SIDEBAR_WIDTH = "15rem"; // Width when sidebar is expanded
+const SIDEBAR_WIDTH_ICON = "3.5rem"; // Width when sidebar is collapsed to icons
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";

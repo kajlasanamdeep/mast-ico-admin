@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Slot } from "@radix-ui/react-slot";
 
 export const SidebarInput = React.forwardRef<
   React.ElementRef<typeof Input>,
@@ -105,7 +106,7 @@ export const SidebarGroupLabel = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & { asChild?: boolean }
 >(({ className, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? import("@radix-ui/react-slot").Slot : "div";
+  const Comp = asChild ? Slot : "div";
 
   return (
     <Comp
@@ -126,7 +127,7 @@ export const SidebarGroupAction = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button"> & { asChild?: boolean }
 >(({ className, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? import("@radix-ui/react-slot").Slot : "button";
+  const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
