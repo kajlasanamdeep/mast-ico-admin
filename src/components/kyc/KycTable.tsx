@@ -14,6 +14,7 @@ import { Search, Calendar } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { KycUserData } from "@/types/kyc";
+import { KycUserDetailModal } from "./KycUserDetailModal";
 
 type KycTableProps = {
   kycUsers: KycUserData[];
@@ -22,6 +23,8 @@ type KycTableProps = {
 
 export const KycTable = ({ kycUsers, handleDetailsClick }: KycTableProps) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedUser, setSelectedUser] = useState<KycUserData | undefined>(undefined);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Filter users based on search term
   const filteredUsers = kycUsers.filter(user => 
@@ -29,6 +32,16 @@ export const KycTable = ({ kycUsers, handleDetailsClick }: KycTableProps) => {
     user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const openUserDetailModal = (user: KycUserData) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+    handleDetailsClick(user.id);
+  };
+
+  const closeUserDetailModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -103,7 +116,7 @@ export const KycTable = ({ kycUsers, handleDetailsClick }: KycTableProps) => {
               <TableCell>{user.documentType}</TableCell>
               <TableCell>{user.nationality || "N/A"}</TableCell>
               <TableCell className="text-right">
-                <Button variant="outline" size="sm" onClick={() => handleDetailsClick(user.id)}>View Details</Button>
+                <Button variant="outline" size="sm" onClick={() => openUserDetailModal(user)}>View Details</Button>
               </TableCell>
             </TableRow>
           ))}
@@ -118,6 +131,12 @@ export const KycTable = ({ kycUsers, handleDetailsClick }: KycTableProps) => {
           Next
         </Button>
       </div>
+
+      <KycUserDetailModal 
+        isOpen={isModalOpen} 
+        onClose={closeUserDetailModal} 
+        userData={selectedUser} 
+      />
     </>
   );
 };
