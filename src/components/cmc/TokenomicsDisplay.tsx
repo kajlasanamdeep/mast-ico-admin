@@ -16,29 +16,21 @@ const TokenomicsDisplay = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <Skeleton className="h-64 w-full" />
-          <div className="grid grid-cols-2 gap-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-          </div>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-xl md:text-2xl">{tokenomics.tokenSymbol} Token Distribution</CardTitle>
         <CardDescription>
           Total Supply: {tokenomics.totalSupply} {tokenomics.tokenSymbol}
-          <br />
-          Initial Price: {tokenomics.initialPrice}
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="h-64 md:h-80">
+      <CardContent>
+        <div className="h-80 md:h-96 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -47,7 +39,7 @@ const TokenomicsDisplay = () => {
                 nameKey="category"
                 cx="50%"
                 cy="50%"
-                outerRadius={80}
+                outerRadius="80%"
                 fill="#8884d8"
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
               >
@@ -59,11 +51,6 @@ const TokenomicsDisplay = () => {
               <Legend />
             </PieChart>
           </ResponsiveContainer>
-        </div>
-
-        <div>
-          <h3 className="font-medium mb-2">About {tokenomics.tokenSymbol} Token</h3>
-          <p className="text-muted-foreground">{tokenomics.description}</p>
         </div>
       </CardContent>
     </Card>
