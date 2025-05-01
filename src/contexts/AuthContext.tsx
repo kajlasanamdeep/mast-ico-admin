@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: () => void;
+  login: (token: string) => void;
   logout: () => void;
 }
 
@@ -20,21 +20,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const loggedInStatus = localStorage.getItem("isLoggedIn");
     const isLoggedIn = loggedInStatus === "true";
     setIsAuthenticated(isLoggedIn);
-    
+
     // If user is logged in and currently on login page, redirect to dashboard
     if (isLoggedIn && location.pathname === "/login") {
       navigate("/", { replace: true });
     }
   }, [location, navigate]);
 
-  const login = () => {
-    setIsAuthenticated(true);
-    localStorage.setItem("isLoggedIn", "true");
-    navigate("/");
+  const login = (token: string) => {
+    if (token) {
+      setIsAuthenticated(true);
+      localStorage.setItem('token', token);
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/");
+    }
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem('token');
     localStorage.removeItem("isLoggedIn");
     navigate("/login");
   };
@@ -46,6 +50,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

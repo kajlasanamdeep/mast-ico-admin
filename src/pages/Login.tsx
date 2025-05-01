@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/hooks/use-toast";
@@ -7,18 +6,37 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock, LogIn } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { authApi } from "@/lib/auth";
+import { ApiResponse } from "@/lib/http";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
 
-  // For demo purposes, hardcoded credentials
-  // In a real app, this would be replaced with proper authentication
+  const loginMutation = useMutation({
+    mutationFn: authApi.login,
+    onSuccess: (response) => {
+      // Call the login function from context
+      login(response.data.data.token);
+      toast({
+        title: "Success",
+        description: "Login successful. Welcome back!",
+      });
+    },
+    onError: (error: ApiResponse<null>) => {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: error.message || "Invalid credentials. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     
     // Simple validation
     if (!email || !password) {
@@ -27,30 +45,11 @@ const Login = () => {
         description: "Please enter both email and password.",
         variant: "destructive",
       });
-      setLoading(false);
       return;
     }
 
-    // Demo credentials check
-    setTimeout(() => {
-      if (email === "admin@example.com" && password === "admin123") {
-        toast({
-          title: "Success",
-          description: "Login successful. Welcome back!",
-        });
-        // Store login state in localStorage (for demo purposes)
-        localStorage.setItem("isLoggedIn", "true");
-        // Use the login function from context
-        login();
-      } else {
-        toast({
-          title: "Error",
-          description: "Invalid credentials. Try admin@example.com / admin123",
-          variant: "destructive",
-        });
-      }
-      setLoading(false);
-    }, 800); // Artificial delay to simulate API call
+    // Call the login mutation
+    loginMutation.mutate({ email, password });
   };
 
   return (
@@ -101,9 +100,9 @@ const Login = () => {
             <Button
               type="submit"
               className="w-full"
-              disabled={loading}
+              disabled={loginMutation.isPending}
             >
-              {loading ? (
+              {loginMutation.isPending ? (
                 <div className="flex items-center gap-2">
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
                   Signing in...
