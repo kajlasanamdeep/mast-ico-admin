@@ -33,7 +33,7 @@ const ProfileTab = ({
           Manage your personal information and how it appears on the platform.
         </p>
       </div>
-      
+
       <Card>
         <CardHeader>
           <h3 className="text-lg font-medium">Profile Photo</h3>
@@ -43,25 +43,25 @@ const ProfileTab = ({
             <Avatar className="h-24 w-24 text-3xl">
               <AvatarImage src="" />
               <AvatarFallback className="bg-muted">
-                {firstName && lastName 
+                {firstName && lastName
                   ? `${firstName[0]}${lastName[0]}`
                   : "CA"}
               </AvatarFallback>
             </Avatar>
-            
+
             <Button variant="outline" className="gap-2">
               <Image className="h-4 w-4" />
               Upload Photo
             </Button>
           </div>
-          
+
           <p className="text-sm text-muted-foreground">
             Upload a square profile picture (PNG, JPG, JPEG, GIF, SVG).<br />
             Recommended size: 200×200 px.
           </p>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <h3 className="text-lg font-medium">Personal Information</h3>
@@ -69,24 +69,35 @@ const ProfileTab = ({
         <CardContent>
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                disabled
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="firstName">Name</Label>
               <Input
                 id="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
-            
-            <div className="space-y-2">
+
+            {/* <div className="space-y-2">
               <Label htmlFor="lastName">Last Name</Label>
               <Input
                 id="lastName"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
-            </div>
-            
-            <div className="space-y-2">
+            </div> */}
+
+            {/* <div className="space-y-2">
               <Label htmlFor="phoneNumber">Phone Number</Label>
               <Input
                 id="phoneNumber"
@@ -94,19 +105,9 @@ const ProfileTab = ({
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Enter your phone number"
               />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+            </div> */}
           </div>
-          
+
           <Button className="mt-6">Save Changes</Button>
         </CardContent>
       </Card>

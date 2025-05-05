@@ -184,7 +184,7 @@ const RoadmapAdmin = () => {
                 <div key={milestone.id} className="border rounded-lg p-4 space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <GripVertical className="h-5 w-5 text-muted-foreground cursor-move" />
+                      {/* <GripVertical className="h-5 w-5 text-muted-foreground cursor-move" /> */}
                       <h3 className="font-medium">Milestone {index + 1}</h3>
                     </div>
                     <div className="flex items-center gap-2">

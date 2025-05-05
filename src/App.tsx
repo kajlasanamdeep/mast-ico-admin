@@ -27,6 +27,7 @@ import RoadmapAdmin from "./pages/cmc/RoadmapAdmin";
 import TokenomicsPage from "./pages/landing/Tokenomics";
 import RoadmapPage from "./pages/landing/Roadmap";
 import NotFound from "./pages/NotFound";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const queryClient = new QueryClient();
 
@@ -42,11 +43,12 @@ const App = () => (
                 <Sonner />
                 <Routes>
                   <Route path="/login" element={<Login />} />
-                  
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+
                   {/* Public Landing Pages */}
                   <Route path="/tokenomics" element={<TokenomicsPage />} />
                   <Route path="/roadmap" element={<RoadmapPage />} />
-                  
+
                   {/* Protected Admin Routes */}
                   <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<Layout />}>
@@ -60,11 +62,11 @@ const App = () => (
                       <Route path="notifications" element={<Notifications />} />
                       <Route path="kyc-management" element={<KycManagement />} />
                       <Route path="legal-compliance" element={<LegalCompliance />} />
-                      
+
                       {/* CMC Menu Pages */}
                       <Route path="cmc/tokenomics" element={<TokenomicsAdmin />} />
                       <Route path="cmc/roadmap" element={<RoadmapAdmin />} />
-                      
+
                       <Route path="settings" element={<Settings />} />
                       <Route path="*" element={<NotFound />} />
                     </Route>

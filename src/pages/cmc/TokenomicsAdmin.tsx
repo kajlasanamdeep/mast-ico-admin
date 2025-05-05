@@ -121,63 +121,7 @@ const TokenomicsAdmin = () => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Token Information</CardTitle>
-            <CardDescription>
-              Basic information about your token
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="tokenSymbol">Token Symbol</Label>
-                  <Input 
-                    id="tokenSymbol" 
-                    name="tokenSymbol"
-                    value={formData.tokenSymbol} 
-                    onChange={handleInputChange}
-                    placeholder="e.g., BTC"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="totalSupply">Total Supply</Label>
-                  <Input 
-                    id="totalSupply" 
-                    name="totalSupply"
-                    value={formData.totalSupply} 
-                    onChange={handleInputChange}
-                    placeholder="e.g., 1,000,000"
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="initialPrice">Initial Price</Label>
-                <Input 
-                  id="initialPrice" 
-                  name="initialPrice"
-                  value={formData.initialPrice} 
-                  onChange={handleInputChange}
-                  placeholder="e.g., $0.01"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description" 
-                  name="description"
-                  value={formData.description} 
-                  onChange={handleInputChange}
-                  placeholder="Describe the utility and purpose of your token"
-                  rows={4}
-                />
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-        
+      <div className="grid grid-cols-1">
         <Card>
           <CardHeader>
             <CardTitle>Token Allocation</CardTitle>

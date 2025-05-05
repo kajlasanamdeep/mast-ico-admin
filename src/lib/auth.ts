@@ -1,3 +1,4 @@
+import { verify } from 'crypto';
 import { http } from './http';
 
 interface LoginCredentials {
@@ -52,4 +53,10 @@ export const authApi = {
   login: async (credentials: LoginCredentials) => {
     return http.post<LoginResponse>('/user/adminLogin', credentials);
   },
+  sendOtp: async (email: string) => {
+    return http.post<{ message: string }>('/user/forgotPassword', { email });
+  },
+  verifyOtpAndResetPassword: async (data: { email: string; otp: string; newPassword: string }) => {
+    return http.post<{ message: string }>('/user/verifyOtp', data);
+  }
 };

@@ -9,12 +9,13 @@ import { Lock, LogIn } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "@/lib/auth";
 import { ApiResponse } from "@/lib/http";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
-
+  const navigate = useNavigate();
   const loginMutation = useMutation({
     mutationFn: authApi.login,
     onSuccess: (response) => {
@@ -37,7 +38,7 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Simple validation
     if (!email || !password) {
       toast({
@@ -58,10 +59,11 @@ const Login = () => {
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-6">
             <div className="rounded-full bg-primary/10 p-4">
-              <Lock className="h-8 w-8 text-primary" />
+              {/* <Lock className="h-8 w-8 text-primary" /> */}
+              <img src="/blake-logo.png" alt="Logo" className="h-8 w-8" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-center">MAST ICO Admin Panel</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">MAST-Token Admin Panel</CardTitle>
           <CardDescription className="text-center">
             Enter your credentials to access the admin panel
           </CardDescription>
@@ -82,7 +84,9 @@ const Login = () => {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Button variant="link" size="sm" className="px-0 font-normal">
+                <Button type="button" onClick={() => {
+                  navigate("/forgot-password");
+                }} variant="link" size="sm" className="px-0 font-normal">
                   Forgot password?
                 </Button>
               </div>
